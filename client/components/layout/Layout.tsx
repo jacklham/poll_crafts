@@ -11,7 +11,6 @@ export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
 
   const navigation = [
-    { name: "Home", href: "/", icon: BarChart3 },
     { name: "Browse Polls", href: "/polls", icon: Vote },
     { name: "Create Poll", href: "/create", icon: PlusCircle },
     { name: "Community", href: "/community", icon: Users },
@@ -29,7 +28,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/polls" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-cyan-600 rounded-lg flex items-center justify-center">
                 <Vote className="w-5 h-5 text-white" />
               </div>

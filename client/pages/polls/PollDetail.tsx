@@ -2,19 +2,25 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { 
-  Vote, 
-  Clock, 
-  Users, 
-  CheckCircle, 
-  ArrowLeft, 
-  Share2, 
+import {
+  Vote,
+  Clock,
+  Users,
+  CheckCircle,
+  ArrowLeft,
+  Share2,
   Flag,
-  BarChart3 
+  BarChart3,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
@@ -45,7 +51,7 @@ export default function PollDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth();
-  
+
   const [poll, setPoll] = useState<Poll | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
   const [hasVoted, setHasVoted] = useState(false);
@@ -61,11 +67,13 @@ export default function PollDetail() {
   const loadPoll = () => {
     try {
       // Load from stored polls and mock polls
-      const storedPolls = JSON.parse(localStorage.getItem('pollcraft_polls') || '[]');
+      const storedPolls = JSON.parse(
+        localStorage.getItem("pollcraft_polls") || "[]",
+      );
       const mockPolls = getMockPolls();
       const allPolls = [...storedPolls, ...mockPolls];
 
-      const foundPoll = allPolls.find(p => p.id === id);
+      const foundPoll = allPolls.find((p) => p.id === id);
 
       if (foundPoll) {
         // Ensure votes object exists and is properly formatted
@@ -78,13 +86,19 @@ export default function PollDetail() {
 
         // Ensure totalVotes is calculated correctly
         if (!foundPoll.totalVotes || foundPoll.totalVotes === 0) {
-          foundPoll.totalVotes = Object.values(foundPoll.votes).reduce((sum: number, count: number) => sum + count, 0);
+          foundPoll.totalVotes = Object.values(foundPoll.votes).reduce(
+            (sum: number, count: number) => sum + count,
+            0,
+          );
         }
 
         setPoll(foundPoll);
       } else {
         console.error("Poll not found with ID:", id);
-        console.log("Available polls:", allPolls.map(p => ({ id: p.id, title: p.title })));
+        console.log(
+          "Available polls:",
+          allPolls.map((p) => ({ id: p.id, title: p.title })),
+        );
         toast.error("Poll not found");
         navigate("/polls");
       }
@@ -98,11 +112,13 @@ export default function PollDetail() {
 
   const loadUserVotes = () => {
     if (!user) return;
-    
+
     try {
-      const votes = JSON.parse(localStorage.getItem(`pollcraft_user_votes_${user.id}`) || '[]');
+      const votes = JSON.parse(
+        localStorage.getItem(`pollcraft_user_votes_${user.id}`) || "[]",
+      );
       setUserVotes(votes);
-      
+
       // Check if user already voted on this poll
       const existingVote = votes.find((vote: UserVote) => vote.pollId === id);
       if (existingVote) {
@@ -118,7 +134,8 @@ export default function PollDetail() {
     {
       id: "mock-1",
       title: "What's your favorite programming language in 2024?",
-      description: "Help us understand the current trends in software development",
+      description:
+        "Help us understand the current trends in software development",
       author: "TechCommunity",
       totalVotes: 1247,
       createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
@@ -128,7 +145,7 @@ export default function PollDetail() {
       votes: { "0": 412, "1": 389, "2": 298, "3": 148 },
       multipleChoice: false,
       anonymousVoting: true,
-      publicResults: true
+      publicResults: true,
     },
     {
       id: "mock-2",
@@ -143,7 +160,7 @@ export default function PollDetail() {
       votes: { "0": 234, "1": 298, "2": 167, "3": 157 },
       multipleChoice: false,
       anonymousVoting: true,
-      publicResults: true
+      publicResults: true,
     },
     {
       id: "mock-3",
@@ -158,8 +175,8 @@ export default function PollDetail() {
       votes: { "0": 201, "1": 156, "2": 178, "3": 99 },
       multipleChoice: false,
       anonymousVoting: true,
-      publicResults: true
-    }
+      publicResults: true,
+    },
   ];
 
   const handleOptionSelect = (optionIndex: number) => {
@@ -167,10 +184,10 @@ export default function PollDetail() {
 
     if (poll?.multipleChoice) {
       // Multiple choice: toggle selection
-      setSelectedOptions(prev => 
+      setSelectedOptions((prev) =>
         prev.includes(optionIndex)
-          ? prev.filter(i => i !== optionIndex)
-          : [...prev, optionIndex]
+          ? prev.filter((i) => i !== optionIndex)
+          : [...prev, optionIndex],
       );
     } else {
       // Single choice: replace selection
@@ -182,40 +199,45 @@ export default function PollDetail() {
     if (!poll || !user || selectedOptions.length === 0 || hasVoted) return;
 
     setIsVoting(true);
-    
+
     try {
       // Update poll votes
       const updatedPoll = { ...poll };
-      selectedOptions.forEach(optionIndex => {
-        updatedPoll.votes[optionIndex] = (updatedPoll.votes[optionIndex] || 0) + 1;
+      selectedOptions.forEach((optionIndex) => {
+        updatedPoll.votes[optionIndex] =
+          (updatedPoll.votes[optionIndex] || 0) + 1;
       });
       updatedPoll.totalVotes += 1;
 
       // Save updated poll
-      const storedPolls = JSON.parse(localStorage.getItem('pollcraft_polls') || '[]');
+      const storedPolls = JSON.parse(
+        localStorage.getItem("pollcraft_polls") || "[]",
+      );
       const pollIndex = storedPolls.findIndex((p: Poll) => p.id === poll.id);
       if (pollIndex !== -1) {
         storedPolls[pollIndex] = updatedPoll;
-        localStorage.setItem('pollcraft_polls', JSON.stringify(storedPolls));
+        localStorage.setItem("pollcraft_polls", JSON.stringify(storedPolls));
       }
 
       // Save user vote
       const newVote: UserVote = {
         pollId: poll.id,
         selectedOptions,
-        votedAt: new Date().toISOString()
+        votedAt: new Date().toISOString(),
       };
-      
+
       const updatedUserVotes = [...userVotes, newVote];
       setUserVotes(updatedUserVotes);
-      localStorage.setItem(`pollcraft_user_votes_${user.id}`, JSON.stringify(updatedUserVotes));
+      localStorage.setItem(
+        `pollcraft_user_votes_${user.id}`,
+        JSON.stringify(updatedUserVotes),
+      );
 
       // Update UI state
       setPoll(updatedPoll);
       setHasVoted(true);
-      
+
       toast.success("🗳️ Your vote has been recorded!");
-      
     } catch (error) {
       console.error("Error voting:", error);
       toast.error("Failed to record vote. Please try again.");
@@ -226,17 +248,19 @@ export default function PollDetail() {
 
   const getTimeLeft = () => {
     if (!poll || poll.duration === "0") return "No end date";
-    
+
     const created = new Date(poll.createdAt);
     const durationDays = parseInt(poll.duration);
-    const endDate = new Date(created.getTime() + durationDays * 24 * 60 * 60 * 1000);
+    const endDate = new Date(
+      created.getTime() + durationDays * 24 * 60 * 60 * 1000,
+    );
     const now = new Date();
-    
+
     if (endDate < now) return "Ended";
-    
+
     const diffTime = endDate.getTime() - now.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays === 1) return "1 day left";
     return `${diffDays} days left`;
   };
@@ -267,8 +291,12 @@ export default function PollDetail() {
     return (
       <Layout>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Poll Not Found</h1>
-          <p className="text-gray-600 mb-6">The poll you're looking for doesn't exist or has been removed.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            Poll Not Found
+          </h1>
+          <p className="text-gray-600 mb-6">
+            The poll you're looking for doesn't exist or has been removed.
+          </p>
           <Link to="/polls">
             <Button>
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -294,11 +322,13 @@ export default function PollDetail() {
               Back to Polls
             </Button>
           </Link>
-          
+
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <Badge className="mb-3">{poll.category}</Badge>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{poll.title}</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                {poll.title}
+              </h1>
               {poll.description && (
                 <p className="text-lg text-gray-600 mb-4">{poll.description}</p>
               )}
@@ -314,7 +344,7 @@ export default function PollDetail() {
                 <span>by {poll.author}</span>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm">
                 <Share2 className="w-4 h-4 mr-2" />
@@ -333,9 +363,13 @@ export default function PollDetail() {
           <Alert className="mb-6">
             <Vote className="h-4 w-4" />
             <AlertDescription>
-              <Link to="/signin" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <Link
+                to="/signin"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
                 Sign in
-              </Link> to vote on this poll and see your voting history.
+              </Link>{" "}
+              to vote on this poll and see your voting history.
             </AlertDescription>
           </Alert>
         )}
@@ -367,7 +401,7 @@ export default function PollDetail() {
               const percentage = getOptionPercentage(index);
               const voteCount = poll.votes[index] || 0;
               const isSelected = selectedOptions.includes(index);
-              
+
               return (
                 <div
                   key={index}
@@ -377,8 +411,8 @@ export default function PollDetail() {
                         ? "border-green-500 bg-green-50"
                         : "border-gray-200 bg-gray-50"
                       : isSelected
-                      ? "border-indigo-500 bg-indigo-50"
-                      : "border-gray-200 hover:border-indigo-300 hover:bg-gray-50"
+                        ? "border-indigo-500 bg-indigo-50"
+                        : "border-gray-200 hover:border-indigo-300 hover:bg-gray-50"
                   } ${isPollEnded || !isAuthenticated ? "cursor-not-allowed opacity-60" : ""}`}
                   onClick={() => handleOptionSelect(index)}
                 >
@@ -395,7 +429,7 @@ export default function PollDetail() {
                       )}
                     </div>
                   </div>
-                  
+
                   {hasVoted && poll.publicResults && (
                     <Progress value={percentage} className="h-2" />
                   )}
@@ -439,7 +473,7 @@ export default function PollDetail() {
                 {poll.options.map((option, index) => {
                   const percentage = getOptionPercentage(index);
                   const voteCount = poll.votes[index] || 0;
-                  
+
                   return (
                     <div key={index}>
                       <div className="flex justify-between items-center mb-1">
@@ -453,11 +487,11 @@ export default function PollDetail() {
                   );
                 })}
               </div>
-              
+
               <div className="mt-6 pt-4 border-t">
                 <p className="text-sm text-gray-600">
-                  Total votes: {poll.totalVotes} • 
-                  Poll created: {new Date(poll.createdAt).toLocaleDateString()}
+                  Total votes: {poll.totalVotes} • Poll created:{" "}
+                  {new Date(poll.createdAt).toLocaleDateString()}
                 </p>
               </div>
             </CardContent>

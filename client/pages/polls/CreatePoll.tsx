@@ -19,7 +19,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { PlusCircle, X, Users, Settings, CheckCircle, AlertCircle } from "lucide-react";
+import {
+  PlusCircle,
+  X,
+  Users,
+  Settings,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -37,7 +44,7 @@ interface PollData {
 
 export default function CreatePoll() {
   const navigate = useNavigate();
-  
+
   // Form state
   const [formData, setFormData] = useState<PollData>({
     title: "",
@@ -56,15 +63,16 @@ export default function CreatePoll() {
   const [success, setSuccess] = useState(false);
 
   const updateFormData = (field: keyof PollData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error for this field when user starts typing
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
   const addOption = () => {
-    if (formData.options.length < 10) { // Limit to 10 options
+    if (formData.options.length < 10) {
+      // Limit to 10 options
       updateFormData("options", [...formData.options, ""]);
     }
   };
@@ -93,7 +101,9 @@ export default function CreatePoll() {
     }
 
     // Validate options
-    const validOptions = formData.options.filter(option => option.trim() !== "");
+    const validOptions = formData.options.filter(
+      (option) => option.trim() !== "",
+    );
     if (validOptions.length < 2) {
       newErrors.options = "At least 2 poll options are required";
     } else if (validOptions.length !== new Set(validOptions).size) {
@@ -124,14 +134,14 @@ export default function CreatePoll() {
 
     try {
       // Simulate API call (in real app, this would call your backend)
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
       // Create poll object
       const pollId = Date.now().toString();
       const newPoll = {
         id: pollId,
         ...formData,
-        options: formData.options.filter(option => option.trim() !== ""),
+        options: formData.options.filter((option) => option.trim() !== ""),
         createdAt: new Date().toISOString(),
         votes: {},
         totalVotes: 0,
@@ -139,9 +149,11 @@ export default function CreatePoll() {
       };
 
       // Save to localStorage (in real app, save to database)
-      const existingPolls = JSON.parse(localStorage.getItem('pollcraft_polls') || '[]');
+      const existingPolls = JSON.parse(
+        localStorage.getItem("pollcraft_polls") || "[]",
+      );
       existingPolls.push(newPoll);
-      localStorage.setItem('pollcraft_polls', JSON.stringify(existingPolls));
+      localStorage.setItem("pollcraft_polls", JSON.stringify(existingPolls));
 
       setSuccess(true);
       toast.success("🎉 Poll created successfully!");
@@ -150,7 +162,6 @@ export default function CreatePoll() {
       setTimeout(() => {
         navigate("/polls");
       }, 2000);
-
     } catch (error) {
       console.error("Error creating poll:", error);
       toast.error("Failed to create poll. Please try again.");
@@ -170,9 +181,15 @@ export default function CreatePoll() {
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Poll Created Successfully!</h2>
-              <p className="text-gray-600 mb-4">Your poll "{formData.title}" has been created and is now live.</p>
-              <p className="text-sm text-gray-500">Redirecting to polls page...</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Poll Created Successfully!
+              </h2>
+              <p className="text-gray-600 mb-4">
+                Your poll "{formData.title}" has been created and is now live.
+              </p>
+              <p className="text-sm text-gray-500">
+                Redirecting to polls page...
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -228,7 +245,9 @@ export default function CreatePoll() {
                     placeholder="Provide additional context or details about your poll..."
                     rows={3}
                     value={formData.description}
-                    onChange={(e) => updateFormData("description", e.target.value)}
+                    onChange={(e) =>
+                      updateFormData("description", e.target.value)
+                    }
                   />
                 </div>
 
@@ -280,7 +299,9 @@ export default function CreatePoll() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="technology">Technology</SelectItem>
-                      <SelectItem value="entertainment">Entertainment</SelectItem>
+                      <SelectItem value="entertainment">
+                        Entertainment
+                      </SelectItem>
                       <SelectItem value="sports">Sports</SelectItem>
                       <SelectItem value="politics">Politics</SelectItem>
                       <SelectItem value="travel">Travel</SelectItem>
@@ -338,7 +359,9 @@ export default function CreatePoll() {
                   </div>
                   <Switch
                     checked={formData.multipleChoice}
-                    onCheckedChange={(checked) => updateFormData("multipleChoice", checked)}
+                    onCheckedChange={(checked) =>
+                      updateFormData("multipleChoice", checked)
+                    }
                   />
                 </div>
 
@@ -351,7 +374,9 @@ export default function CreatePoll() {
                   </div>
                   <Switch
                     checked={formData.anonymousVoting}
-                    onCheckedChange={(checked) => updateFormData("anonymousVoting", checked)}
+                    onCheckedChange={(checked) =>
+                      updateFormData("anonymousVoting", checked)
+                    }
                   />
                 </div>
 
@@ -364,13 +389,15 @@ export default function CreatePoll() {
                   </div>
                   <Switch
                     checked={formData.publicResults}
-                    onCheckedChange={(checked) => updateFormData("publicResults", checked)}
+                    onCheckedChange={(checked) =>
+                      updateFormData("publicResults", checked)
+                    }
                   />
                 </div>
 
                 <div className="pt-4 border-t">
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full"
                     size="lg"
                     onClick={handleSubmit}
                     disabled={isLoading}

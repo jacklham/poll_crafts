@@ -5,6 +5,7 @@ Thank you for your interest in contributing to PollCraft! This document provides
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - pnpm (recommended package manager)
 - Git
@@ -13,6 +14,7 @@ Thank you for your interest in contributing to PollCraft! This document provides
 ### Setting Up Your Development Environment
 
 1. **Fork the repository**
+
    ```bash
    # Click the "Fork" button on GitHub, then clone your fork
    git clone https://github.com/your-username/poll_crafts.git
@@ -20,11 +22,13 @@ Thank you for your interest in contributing to PollCraft! This document provides
    ```
 
 2. **Add the upstream remote**
+
    ```bash
    git remote add upstream https://github.com/jacklham/poll_crafts.git
    ```
 
 3. **Install dependencies**
+
    ```bash
    pnpm install
    ```
@@ -47,11 +51,13 @@ Before creating bug reports, please check the existing issues to avoid duplicate
 5. **Specify your environment** (OS, browser, Node.js version)
 
 ### Bug Report Template
+
 ```markdown
 **Bug Description**
 A clear description of what the bug is.
 
 **Steps to Reproduce**
+
 1. Go to '...'
 2. Click on '...'
 3. Scroll down to '...'
@@ -64,6 +70,7 @@ What you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Environment**
+
 - OS: [e.g. macOS, Windows, Linux]
 - Browser: [e.g. Chrome, Firefox, Safari]
 - Node.js version: [e.g. 18.17.0]
@@ -83,6 +90,7 @@ We love feature suggestions! Here's how to propose new features:
 ## 🔧 Development Workflow
 
 ### Branch Naming Convention
+
 - `feature/description` - for new features
 - `fix/description` - for bug fixes
 - `docs/description` - for documentation changes
@@ -91,6 +99,7 @@ We love feature suggestions! Here's how to propose new features:
 ### Making Changes
 
 1. **Create a new branch**
+
    ```bash
    git checkout -b feature/amazing-new-feature
    ```
@@ -102,24 +111,27 @@ We love feature suggestions! Here's how to propose new features:
    - Update documentation if needed
 
 3. **Test your changes**
+
    ```bash
    # Run type checking
    pnpm typecheck
-   
+
    # Run tests
    pnpm test
-   
+
    # Test the build
    pnpm build
    ```
 
 4. **Commit your changes**
+
    ```bash
    git add .
    git commit -m "feat: add amazing new feature"
    ```
 
 5. **Push to your fork**
+
    ```bash
    git push origin feature/amazing-new-feature
    ```
@@ -142,6 +154,7 @@ We use conventional commits for clear and consistent commit messages:
 - `chore:` - updating dependencies, build tools, etc.
 
 Examples:
+
 ```bash
 feat: add poll voting functionality
 fix: resolve authentication redirect issue
@@ -152,6 +165,7 @@ style: format code with prettier
 ## 🧪 Testing Guidelines
 
 ### Running Tests
+
 ```bash
 # Run all tests
 pnpm test
@@ -164,19 +178,21 @@ pnpm test --coverage
 ```
 
 ### Writing Tests
+
 - Write tests for new features and bug fixes
 - Place tests next to the code they test
 - Use descriptive test names
 - Follow the existing test patterns
 
 Example test structure:
+
 ```typescript
-describe('PollCreation', () => {
-  it('should create a poll with valid data', () => {
+describe("PollCreation", () => {
+  it("should create a poll with valid data", () => {
     // Test implementation
   });
 
-  it('should show validation errors for invalid data', () => {
+  it("should show validation errors for invalid data", () => {
     // Test implementation
   });
 });
@@ -185,24 +201,28 @@ describe('PollCreation', () => {
 ## 📝 Code Style Guidelines
 
 ### TypeScript
+
 - Use TypeScript for all new code
 - Define proper types and interfaces
 - Avoid `any` type unless absolutely necessary
 - Use meaningful variable and function names
 
 ### React Components
+
 - Use functional components with hooks
 - Keep components small and focused
 - Extract custom hooks for reusable logic
 - Use proper prop types
 
 ### Styling
+
 - Use Tailwind CSS utility classes
 - Follow the existing design system
 - Ensure responsive design
 - Test on different screen sizes
 
 ### File Organization
+
 ```
 client/
 ├── components/
@@ -219,12 +239,14 @@ client/
 ## 🔍 Code Review Process
 
 ### For Contributors
+
 - Ensure your PR has a clear description
 - Link any related issues
 - Respond to review feedback promptly
 - Keep PRs focused and reasonably sized
 
 ### Review Checklist
+
 - [ ] Code follows the style guidelines
 - [ ] Tests are included and passing
 - [ ] Documentation is updated if needed
@@ -234,12 +256,14 @@ client/
 ## 📖 Documentation
 
 ### Updating Documentation
+
 - Update README.md for significant changes
 - Add JSDoc comments for new functions
 - Update type definitions
 - Include examples in documentation
 
 ### Documentation Style
+
 - Use clear, concise language
 - Include code examples
 - Add screenshots for UI changes
@@ -248,6 +272,7 @@ client/
 ## 🎉 Recognition
 
 Contributors will be recognized in:
+
 - GitHub contributors list
 - Project README
 - Release notes for significant contributions

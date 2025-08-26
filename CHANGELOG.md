@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **PollCraft v1.0.0 is here!** A modern, full-stack polling application built with React, TypeScript, and Express.
 
 ### ✨ Features Added
+
 - **Complete Authentication System**
   - User registration and login
   - Secure session management
@@ -45,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Tailwind CSS styling
 
 ### 🛠️ Technical Features
+
 - **Full-Stack TypeScript** - Type safety across client and server
 - **React 18** - Modern React with concurrent features
 - **Express 5** - Fast and reliable backend
@@ -53,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Production Ready** - Optimized builds and deployment
 
 ### 📦 Developer Experience
+
 - **pnpm** - Fast and efficient package management
 - **Vitest** - Modern testing framework
 - **Prettier** - Consistent code formatting
@@ -60,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Comprehensive Documentation** - Easy setup and contribution
 
 ### 🚀 Deployment Support
+
 - **Netlify** - One-click deployment
 - **Vercel** - Seamless hosting
 - **Docker** - Containerized deployment
@@ -70,6 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Release Notes Format
 
 ### Types of Changes
+
 - `Added` for new features
 - `Changed` for changes in existing functionality
 - `Deprecated` for soon-to-be removed features
@@ -78,10 +83,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Security` for vulnerability fixes
 
 ### Version Numbers
+
 - **MAJOR** version for incompatible API changes
 - **MINOR** version for backwards-compatible functionality additions
 - **PATCH** version for backwards-compatible bug fixes
 
 ---
 
-*Keep this changelog updated with each release to help users understand what's new, changed, or fixed.*
+_Keep this changelog updated with each release to help users understand what's new, changed, or fixed._

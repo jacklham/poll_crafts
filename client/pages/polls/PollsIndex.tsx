@@ -1,10 +1,24 @@
 import { useState, useEffect } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Vote, TrendingUp, Clock, Users, Search, Filter, Plus } from "lucide-react";
+import {
+  Vote,
+  TrendingUp,
+  Clock,
+  Users,
+  Search,
+  Filter,
+  Plus,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Poll {
@@ -29,14 +43,15 @@ export default function PollsIndex() {
     {
       id: "mock-1",
       title: "What's your favorite programming language in 2024?",
-      description: "Help us understand the current trends in software development",
+      description:
+        "Help us understand the current trends in software development",
       author: "TechCommunity",
       totalVotes: 1247,
       createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
       category: "Technology",
       duration: "7",
       options: ["JavaScript", "Python", "TypeScript", "Go"],
-      votes: { "0": 412, "1": 389, "2": 298, "3": 148 }
+      votes: { "0": 412, "1": 389, "2": 298, "3": 148 },
     },
     {
       id: "mock-2",
@@ -48,7 +63,7 @@ export default function PollsIndex() {
       category: "Travel",
       duration: "14",
       options: ["Japan", "Italy", "Iceland", "New Zealand"],
-      votes: { "0": 234, "1": 298, "2": 167, "3": 157 }
+      votes: { "0": 234, "1": 298, "2": 167, "3": 157 },
     },
     {
       id: "mock-3",
@@ -60,8 +75,8 @@ export default function PollsIndex() {
       category: "Entertainment",
       duration: "7",
       options: ["Netflix", "Disney+", "Amazon Prime", "Hulu"],
-      votes: { "0": 201, "1": 156, "2": 178, "3": 99 }
-    }
+      votes: { "0": 201, "1": 156, "2": 178, "3": 99 },
+    },
   ];
 
   useEffect(() => {
@@ -70,37 +85,44 @@ export default function PollsIndex() {
 
   const loadPolls = () => {
     // Load created polls from localStorage
-    const storedPolls = JSON.parse(localStorage.getItem('pollcraft_polls') || '[]');
-    
+    const storedPolls = JSON.parse(
+      localStorage.getItem("pollcraft_polls") || "[]",
+    );
+
     // Combine with mock polls for demonstration
     const allPolls = [...storedPolls, ...mockPolls];
-    
+
     // Sort by creation date (newest first)
-    allPolls.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    
+    allPolls.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+
     setPolls(allPolls);
   };
 
   // Refresh polls when returning to this page (for updated vote counts)
   useEffect(() => {
     const handleFocus = () => loadPolls();
-    window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
   }, []);
 
   const getTimeLeft = (createdAt: string, duration: string) => {
     if (duration === "0") return "No end date";
-    
+
     const created = new Date(createdAt);
     const durationDays = parseInt(duration);
-    const endDate = new Date(created.getTime() + durationDays * 24 * 60 * 60 * 1000);
+    const endDate = new Date(
+      created.getTime() + durationDays * 24 * 60 * 60 * 1000,
+    );
     const now = new Date();
-    
+
     if (endDate < now) return "Ended";
-    
+
     const diffTime = endDate.getTime() - now.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays === 1) return "1 day left";
     return `${diffDays} days left`;
   };
@@ -108,24 +130,32 @@ export default function PollsIndex() {
   const isHot = (totalVotes: number) => totalVotes > 500;
 
   // Filter polls based on search term
-  const filteredPolls = polls.filter(poll =>
-    poll.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    poll.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    poll.author.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPolls = polls.filter(
+    (poll) =>
+      poll.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      poll.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      poll.author.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Separate trending polls (high vote count or recent)
-  const trendingPolls = filteredPolls.filter(poll => 
-    isHot(poll.totalVotes) || 
-    new Date(poll.createdAt).getTime() > Date.now() - 3 * 24 * 60 * 60 * 1000
-  ).slice(0, 6);
+  const trendingPolls = filteredPolls
+    .filter(
+      (poll) =>
+        isHot(poll.totalVotes) ||
+        new Date(poll.createdAt).getTime() >
+          Date.now() - 3 * 24 * 60 * 60 * 1000,
+    )
+    .slice(0, 6);
 
   const PollCard = ({ poll }: { poll: Poll }) => (
     <Card className="hover:shadow-lg transition-shadow cursor-pointer group">
       <Link to={`/polls/${poll.id}`} className="block">
         <CardHeader>
           <div className="flex items-start justify-between">
-            <Badge variant={isHot(poll.totalVotes) ? "default" : "secondary"} className="mb-2">
+            <Badge
+              variant={isHot(poll.totalVotes) ? "default" : "secondary"}
+              className="mb-2"
+            >
               {poll.category}
             </Badge>
             {isHot(poll.totalVotes) && (
@@ -150,8 +180,8 @@ export default function PollsIndex() {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600">by {poll.author}</span>
-            <Button 
-              size="sm" 
+            <Button
+              size="sm"
               className="flex items-center gap-1"
               onClick={(e) => {
                 e.preventDefault(); // Prevent Link navigation
@@ -240,10 +270,9 @@ export default function PollsIndex() {
               {searchTerm ? "No polls found" : "No polls yet"}
             </h3>
             <p className="text-gray-600 mb-6">
-              {searchTerm 
-                ? "Try adjusting your search terms" 
-                : "Be the first to create a poll and start the conversation!"
-              }
+              {searchTerm
+                ? "Try adjusting your search terms"
+                : "Be the first to create a poll and start the conversation!"}
             </p>
             <Link to="/create">
               <Button>
@@ -256,12 +285,23 @@ export default function PollsIndex() {
 
         {/* Categories */}
         <section>
-          <h2 className="text-2xl font-semibold text-gray-900 mb-6">Browse by Category</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+            Browse by Category
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              "Technology", "Entertainment", "Sports", "Politics", 
-              "Travel", "Food", "Fashion", "Health", "Education", 
-              "Business", "Science", "Art"
+              "Technology",
+              "Entertainment",
+              "Sports",
+              "Politics",
+              "Travel",
+              "Food",
+              "Fashion",
+              "Health",
+              "Education",
+              "Business",
+              "Science",
+              "Art",
             ].map((category) => (
               <Button
                 key={category}

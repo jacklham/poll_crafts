@@ -10,7 +10,7 @@
 
 **🚀 Create Amazing Polls That People Love**
 
-*A modern, full-stack polling application built with React, TypeScript, and Express*
+_A modern, full-stack polling application built with React, TypeScript, and Express_
 
 [🌟 Live Demo](https://github.com/jacklham/poll_crafts) • [📖 Documentation](#-getting-started) • [🤝 Contribute](#-contributing)
 
@@ -23,8 +23,9 @@
 PollCraft is a beautiful, production-ready polling application that makes it easy to create, share, and discover polls. Built with modern web technologies, it features a sleek user interface, robust authentication system, and real-time poll management.
 
 ### 🎯 Perfect for:
+
 - **Community Engagement** - Build stronger connections with your audience
-- **Market Research** - Gather valuable insights from your customers  
+- **Market Research** - Gather valuable insights from your customers
 - **Team Decisions** - Make collaborative choices with your colleagues
 - **Social Media** - Create engaging content that drives interaction
 - **Educational Use** - Interactive learning and classroom participation
@@ -34,12 +35,14 @@ PollCraft is a beautiful, production-ready polling application that makes it eas
 ## 🌟 Key Features
 
 ### 🔐 **Secure Authentication System**
+
 - User registration and login
 - Session persistence across browser sessions
 - Protected routes for authenticated users only
 - Secure credential handling
 
 ### 📊 **Powerful Poll Management**
+
 - **Create Polls** with multiple options and settings
 - **Browse & Discover** trending polls by category
 - **Real-time Voting** with instant result updates
@@ -47,6 +50,7 @@ PollCraft is a beautiful, production-ready polling application that makes it eas
 - **Search & Filter** to find relevant polls quickly
 
 ### 🎨 **Beautiful Modern UI**
+
 - **Responsive Design** - works perfectly on all devices
 - **Dark/Light Mode** support with system preference detection
 - **Smooth Animations** powered by Framer Motion
@@ -54,12 +58,14 @@ PollCraft is a beautiful, production-ready polling application that makes it eas
 - **Professional Styling** with Tailwind CSS
 
 ### 🌐 **Community Features**
+
 - **Community Dashboard** to see what's trending
 - **User Profiles** with activity tracking
 - **Top Contributors** leaderboard
 - **Real-time Activity** feed
 
 ### ⚡ **Developer Experience**
+
 - **TypeScript** for type safety and better development experience
 - **Hot Module Replacement** for lightning-fast development
 - **Comprehensive Testing** with Vitest
@@ -73,6 +79,7 @@ PollCraft is a beautiful, production-ready polling application that makes it eas
 ### 📋 Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - **Node.js** (v18 or higher) - [Download here](https://nodejs.org/)
 - **pnpm** (recommended) - [Install guide](https://pnpm.io/installation)
 - **Git** - [Download here](https://git-scm.com/)
@@ -80,31 +87,34 @@ Before you begin, ensure you have the following installed:
 ### 📦 Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/jacklham/poll_crafts.git
    cd poll_crafts
    ```
 
 2. **Install dependencies**
+
    ```bash
    # Using pnpm (recommended)
    pnpm install
-   
+
    # Or using npm
    npm install
-   
+
    # Or using yarn
    yarn install
    ```
 
 3. **Start the development server**
+
    ```bash
    pnpm dev
    # The app will be available at http://localhost:8080
    ```
 
 4. **Open your browser**
-   
+
    Navigate to `http://localhost:8080` and start exploring PollCraft! 🎉
 
 ### 🏗️ Project Structure
@@ -134,14 +144,14 @@ poll_crafts/
 
 ## 🛠️ Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server with hot reload |
-| `pnpm build` | Create production build |
-| `pnpm start` | Start production server |
-| `pnpm test` | Run test suite |
-| `pnpm typecheck` | Run TypeScript type checking |
-| `pnpm format.fix` | Format code with Prettier |
+| Command           | Description                              |
+| ----------------- | ---------------------------------------- |
+| `pnpm dev`        | Start development server with hot reload |
+| `pnpm build`      | Create production build                  |
+| `pnpm start`      | Start production server                  |
+| `pnpm test`       | Run test suite                           |
+| `pnpm typecheck`  | Run TypeScript type checking             |
+| `pnpm format.fix` | Format code with Prettier                |
 
 ---
 
@@ -150,6 +160,7 @@ poll_crafts/
 ### 🎯 **Make PollCraft Your Own**
 
 #### 1. **Branding & Styling**
+
 ```bash
 # Update colors and themes
 📝 client/global.css          # CSS variables and design tokens
@@ -158,6 +169,7 @@ poll_crafts/
 ```
 
 #### 2. **Application Name & Metadata**
+
 ```bash
 📝 index.html                 # Page title and meta tags
 📝 package.json              # Project name and description
@@ -165,6 +177,7 @@ poll_crafts/
 ```
 
 #### 3. **Features & Functionality**
+
 ```bash
 📝 client/pages/              # Add new pages and routes
 📝 server/routes/             # Create new API endpoints
@@ -172,6 +185,7 @@ poll_crafts/
 ```
 
 #### 4. **Database Integration**
+
 Currently using localStorage for demo purposes. To add a real database:
 
 ```typescript
@@ -187,6 +201,7 @@ pnpm add -D @types/mongoose
 ### 🎨 **Styling & Theming**
 
 PollCraft uses a modern design system:
+
 - **Tailwind CSS** for utility-first styling
 - **Radix UI** for accessible, unstyled components
 - **CSS Variables** for consistent theming
@@ -197,18 +212,21 @@ PollCraft uses a modern design system:
 ## 🌐 Deployment
 
 ### 🚀 **Deploy to Netlify**
+
 1. Connect your GitHub repository to Netlify
 2. Set build command: `pnpm build`
 3. Set publish directory: `dist/spa`
 4. Deploy! 🎉
 
 ### 🚀 **Deploy to Vercel**
+
 1. Install Vercel CLI: `pnpm add -g vercel`
 2. Run: `vercel`
 3. Follow the prompts
 4. Your app is live! 🎉
 
 ### 🐳 **Docker Deployment**
+
 ```dockerfile
 FROM node:18-alpine
 WORKDIR /app
@@ -225,8 +243,9 @@ CMD ["npm", "start"]
 ## 🏗️ Tech Stack
 
 ### **Frontend**
+
 - ⚛️ **React 18** - Modern React with concurrent features
-- 🔷 **TypeScript** - Type safety and better developer experience  
+- 🔷 **TypeScript** - Type safety and better developer experience
 - ⚡ **Vite** - Lightning fast build tool and dev server
 - 🎨 **Tailwind CSS** - Utility-first CSS framework
 - 🧩 **Radix UI** - Accessible, unstyled component library
@@ -235,12 +254,14 @@ CMD ["npm", "start"]
 - 🎭 **Framer Motion** - Smooth animations and gestures
 
 ### **Backend**
+
 - 🟢 **Node.js** - JavaScript runtime
 - 🚂 **Express 5** - Fast, unopinionated web framework
 - 🔷 **TypeScript** - Full-stack type safety
 - 🛡️ **Zod** - Schema validation and type inference
 
 ### **Development & Tooling**
+
 - 📦 **pnpm** - Fast, disk space efficient package manager
 - 🧪 **Vitest** - Next generation testing framework
 - 💄 **Prettier** - Code formatting
@@ -254,16 +275,19 @@ CMD ["npm", "start"]
 We love contributions! Here's how you can help make PollCraft even better:
 
 ### 🐛 **Report Bugs**
+
 - Use the [GitHub Issues](https://github.com/jacklham/poll_crafts/issues) page
 - Include detailed steps to reproduce
 - Add screenshots if applicable
 
 ### ✨ **Suggest Features**
+
 - Open a [feature request](https://github.com/jacklham/poll_crafts/issues/new)
 - Describe the feature and its benefits
 - Include mockups or examples if possible
 
 ### 🔧 **Submit Pull Requests**
+
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Make your changes and test thoroughly
@@ -272,6 +296,7 @@ We love contributions! Here's how you can help make PollCraft even better:
 6. Open a Pull Request
 
 ### 📝 **Development Guidelines**
+
 - Follow TypeScript best practices
 - Write tests for new features
 - Keep components small and focused
@@ -309,6 +334,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **Made with ❤️ by [Jack Lham](https://github.com/jacklham)**
 
-*⭐ Star this repository if you find it helpful!*
+_⭐ Star this repository if you find it helpful!_
 
 </div>

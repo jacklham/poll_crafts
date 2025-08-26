@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { toast } from "sonner";
 
 interface User {
   id: string;
@@ -38,7 +39,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const savedUser = localStorage.getItem('pollcraft_user');
     if (savedUser) {
       try {
-        setUser(JSON.parse(savedUser));
+        const parsedUser = JSON.parse(savedUser);
+        setUser(parsedUser);
+        toast.success(`Welcome back, ${parsedUser.name}!`);
       } catch (error) {
         localStorage.removeItem('pollcraft_user');
       }
@@ -71,9 +74,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setUser(newUser);
       localStorage.setItem('pollcraft_user', JSON.stringify(newUser));
       
+      toast.success(`Welcome to PollCraft, ${name}! 🎉`);
       return true;
     } catch (error) {
       console.error('Sign up error:', error);
+      toast.error('Failed to create account. Please try again.');
       return false;
     }
   };
@@ -92,16 +97,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setUser(userWithoutPassword);
       localStorage.setItem('pollcraft_user', JSON.stringify(userWithoutPassword));
       
+      toast.success(`Welcome back, ${userWithoutPassword.name}! 👋`);
       return true;
     } catch (error) {
       console.error('Sign in error:', error);
+      toast.error('Failed to sign in. Please try again.');
       return false;
     }
   };
 
   const signOut = () => {
+    const userName = user?.name;
     setUser(null);
     localStorage.removeItem('pollcraft_user');
+    toast.success(`Goodbye, ${userName}! Come back soon! 👋`);
   };
 
   const value: AuthContextType = {

@@ -54,7 +54,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // Check if user already exists
       const existingUsers = JSON.parse(localStorage.getItem('pollcraft_users') || '[]');
       const userExists = existingUsers.find((u: User) => u.email === email);
-      
+
       if (userExists) {
         return false; // User already exists
       }
@@ -69,12 +69,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // Save user credentials (in real app, this would be handled by backend)
       const users = [...existingUsers, { ...newUser, password }];
       localStorage.setItem('pollcraft_users', JSON.stringify(users));
-      
-      // Set current user session
-      setUser(newUser);
-      localStorage.setItem('pollcraft_user', JSON.stringify(newUser));
-      
-      toast.success(`Welcome to PollCraft, ${name}! 🎉`);
+
+      toast.success(`Account created successfully! Please sign in to continue. 🎉`);
       return true;
     } catch (error) {
       console.error('Sign up error:', error);

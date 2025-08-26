@@ -58,8 +58,8 @@ export default function SignUp() {
       if (success) {
         setSuccess(true);
         setTimeout(() => {
-          navigate("/polls");
-        }, 1500);
+          navigate("/signin");
+        }, 2000);
       } else {
         setErrors({ submit: "An account with this email already exists" });
       }
@@ -90,9 +90,9 @@ export default function SignUp() {
                 <CheckCircle className="w-8 h-8 text-green-600" />
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to PollCraft!</h2>
-            <p className="text-gray-600 mb-4">Your account has been created successfully.</p>
-            <p className="text-sm text-gray-500">Redirecting to your dashboard...</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Created Successfully!</h2>
+            <p className="text-gray-600 mb-4">Please sign in with your new credentials to continue.</p>
+            <p className="text-sm text-gray-500">Redirecting to sign in page...</p>
           </CardContent>
         </Card>
       </div>

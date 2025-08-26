@@ -1,7 +1,17 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { BarChart3, Users, PlusCircle, Vote, LogIn, UserPlus } from "lucide-react";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { BarChart3, Users, PlusCircle, Vote, LogIn, UserPlus, LogOut, User } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface LayoutProps {
   children: ReactNode;
@@ -9,17 +19,26 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const { user, isAuthenticated, signOut } = useAuth();
 
   const navigation = [
     { name: "Browse Polls", href: "/polls", icon: Vote },
-    { name: "Create Poll", href: "/create", icon: PlusCircle },
+    { name: "Create Poll", href: "/create", icon: PlusCircle, requireAuth: true },
     { name: "Community", href: "/community", icon: Users },
   ];
 
-  const authButtons = [
-    { name: "Sign In", href: "/signin", icon: LogIn, variant: "ghost" as const },
-    { name: "Sign Up", href: "/signup", icon: UserPlus, variant: "default" as const },
-  ];
+  const handleSignOut = () => {
+    signOut();
+  };
+
+  const getUserInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50">
@@ -40,6 +59,9 @@ export default function Layout({ children }: LayoutProps) {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-1">
               {navigation.map((item) => {
+                // Hide create poll link for unauthenticated users
+                if (item.requireAuth && !isAuthenticated) return null;
+                
                 const Icon = item.icon;
                 const isActive = location.pathname === item.href;
                 return (
@@ -56,19 +78,54 @@ export default function Layout({ children }: LayoutProps) {
               })}
             </nav>
 
-            {/* Auth Buttons */}
+            {/* Auth Section */}
             <div className="hidden md:flex items-center space-x-2">
-              {authButtons.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link key={item.name} to={item.href}>
-                    <Button variant={item.variant} size="sm">
-                      <Icon className="w-4 h-4 mr-2" />
-                      {item.name}
+              {isAuthenticated && user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="flex items-center space-x-2 px-3">
+                      <Avatar className="w-8 h-8">
+                        <AvatarFallback className="bg-indigo-100 text-indigo-700 text-sm">
+                          {getUserInitials(user.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="font-medium">{user.name}</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <User className="w-4 h-4 mr-2" />
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Vote className="w-4 h-4 mr-2" />
+                      My Polls
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleSignOut}>
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <>
+                  <Link to="/signin">
+                    <Button variant="ghost" size="sm">
+                      <LogIn className="w-4 h-4 mr-2" />
+                      Sign In
                     </Button>
                   </Link>
-                );
-              })}
+                  <Link to="/signup">
+                    <Button size="sm">
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      Sign Up
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile menu button */}

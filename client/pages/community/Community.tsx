@@ -1,9 +1,22 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Users, TrendingUp, Award, MessageCircle, Star, ChevronRight } from "lucide-react";
+import {
+  Users,
+  TrendingUp,
+  Award,
+  MessageCircle,
+  Star,
+  ChevronRight,
+} from "lucide-react";
 
 export default function Community() {
   const topContributors = [
@@ -14,10 +27,30 @@ export default function Community() {
   ];
 
   const recentActivity = [
-    { user: "John Doe", action: "created a poll", target: "Best coding framework 2024", time: "2 hours ago" },
-    { user: "Jane Smith", action: "voted on", target: "Favorite vacation spots", time: "4 hours ago" },
-    { user: "Bob Wilson", action: "commented on", target: "Tech trends discussion", time: "6 hours ago" },
-    { user: "Lisa Brown", action: "shared", target: "Food preference survey", time: "8 hours ago" },
+    {
+      user: "John Doe",
+      action: "created a poll",
+      target: "Best coding framework 2024",
+      time: "2 hours ago",
+    },
+    {
+      user: "Jane Smith",
+      action: "voted on",
+      target: "Favorite vacation spots",
+      time: "4 hours ago",
+    },
+    {
+      user: "Bob Wilson",
+      action: "commented on",
+      target: "Tech trends discussion",
+      time: "6 hours ago",
+    },
+    {
+      user: "Lisa Brown",
+      action: "shared",
+      target: "Food preference survey",
+      time: "8 hours ago",
+    },
   ];
 
   return (
@@ -29,7 +62,8 @@ export default function Community() {
             Community Hub
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Connect with fellow poll creators and discover what's trending in our vibrant community
+            Connect with fellow poll creators and discover what's trending in
+            our vibrant community
           </p>
         </div>
 
@@ -38,26 +72,34 @@ export default function Community() {
           <div className="lg:col-span-2 space-y-8">
             {/* Community Stats */}
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-6">Community Overview</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+                Community Overview
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card>
                   <CardContent className="p-6 text-center">
                     <Users className="w-8 h-8 text-indigo-600 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-gray-900">15,423</div>
+                    <div className="text-2xl font-bold text-gray-900">
+                      15,423
+                    </div>
                     <p className="text-gray-600">Active Members</p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="p-6 text-center">
                     <TrendingUp className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-gray-900">2,847</div>
+                    <div className="text-2xl font-bold text-gray-900">
+                      2,847
+                    </div>
                     <p className="text-gray-600">Polls This Month</p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="p-6 text-center">
                     <Award className="w-8 h-8 text-amber-600 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-gray-900">89,541</div>
+                    <div className="text-2xl font-bold text-gray-900">
+                      89,541
+                    </div>
                     <p className="text-gray-600">Total Votes</p>
                   </CardContent>
                 </Card>
@@ -74,17 +116,32 @@ export default function Community() {
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     {recentActivity.map((activity, index) => (
-                      <div key={index} className="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-lg">
+                      <div
+                        key={index}
+                        className="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-lg"
+                      >
                         <Avatar className="w-10 h-10">
-                          <AvatarFallback>{activity.user.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                          <AvatarFallback>
+                            {activity.user
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
                           <p className="text-sm">
                             <span className="font-medium">{activity.user}</span>
-                            <span className="text-gray-600"> {activity.action} </span>
-                            <span className="font-medium text-indigo-600">{activity.target}</span>
+                            <span className="text-gray-600">
+                              {" "}
+                              {activity.action}{" "}
+                            </span>
+                            <span className="font-medium text-indigo-600">
+                              {activity.target}
+                            </span>
                           </p>
-                          <p className="text-xs text-gray-500">{activity.time}</p>
+                          <p className="text-xs text-gray-500">
+                            {activity.time}
+                          </p>
                         </div>
                         <ChevronRight className="w-4 h-4 text-gray-400" />
                       </div>
@@ -109,7 +166,9 @@ export default function Community() {
                   <Star className="w-5 h-5 text-amber-500" />
                   Top Contributors
                 </CardTitle>
-                <CardDescription>This month's most active community members</CardDescription>
+                <CardDescription>
+                  This month's most active community members
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -119,10 +178,17 @@ export default function Community() {
                         #{index + 1}
                       </div>
                       <Avatar className="w-10 h-10">
-                        <AvatarFallback>{contributor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        <AvatarFallback>
+                          {contributor.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
                       </Avatar>
                       <div className="flex-1">
-                        <p className="font-medium text-sm">{contributor.name}</p>
+                        <p className="font-medium text-sm">
+                          {contributor.name}
+                        </p>
                         <div className="flex items-center gap-2 text-xs text-gray-600">
                           <span>{contributor.polls} polls</span>
                           <span>•</span>

@@ -3,8 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { PlusCircle, X, Calendar, Users, Settings } from "lucide-react";
 import { useState } from "react";
@@ -111,7 +123,9 @@ export default function CreatePoll() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="technology">Technology</SelectItem>
-                      <SelectItem value="entertainment">Entertainment</SelectItem>
+                      <SelectItem value="entertainment">
+                        Entertainment
+                      </SelectItem>
                       <SelectItem value="sports">Sports</SelectItem>
                       <SelectItem value="politics">Politics</SelectItem>
                       <SelectItem value="travel">Travel</SelectItem>
@@ -154,7 +168,9 @@ export default function CreatePoll() {
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
                     <Label>Multiple Choice</Label>
-                    <p className="text-sm text-gray-500">Allow multiple selections</p>
+                    <p className="text-sm text-gray-500">
+                      Allow multiple selections
+                    </p>
                   </div>
                   <Switch />
                 </div>
@@ -162,7 +178,9 @@ export default function CreatePoll() {
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
                     <Label>Anonymous Voting</Label>
-                    <p className="text-sm text-gray-500">Hide voter identities</p>
+                    <p className="text-sm text-gray-500">
+                      Hide voter identities
+                    </p>
                   </div>
                   <Switch defaultChecked />
                 </div>
@@ -170,7 +188,9 @@ export default function CreatePoll() {
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
                     <Label>Public Results</Label>
-                    <p className="text-sm text-gray-500">Show results to everyone</p>
+                    <p className="text-sm text-gray-500">
+                      Show results to everyone
+                    </p>
                   </div>
                   <Switch defaultChecked />
                 </div>

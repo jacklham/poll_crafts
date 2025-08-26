@@ -1,6 +1,12 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { AlertCircle, ArrowLeft, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -24,9 +30,10 @@ export default function NotFound() {
           </CardHeader>
           <CardContent className="space-y-6">
             <p className="text-gray-600">
-              Don't worry! You can find what you're looking for from our homepage or browse our popular polls.
+              Don't worry! You can find what you're looking for from our
+              homepage or browse our popular polls.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/polls">
                 <Button>
@@ -35,9 +42,7 @@ export default function NotFound() {
                 </Button>
               </Link>
               <Link to="/polls">
-                <Button variant="outline">
-                  Browse Polls
-                </Button>
+                <Button variant="outline">Browse Polls</Button>
               </Link>
             </div>
           </CardContent>

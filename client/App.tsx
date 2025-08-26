@@ -37,11 +37,14 @@ const App = () => (
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/polls" element={<PollsIndex />} />
-            <Route path="/create" element={
-              <ProtectedRoute>
-                <CreatePoll />
-              </ProtectedRoute>
-            } />
+            <Route
+              path="/create"
+              element={
+                <ProtectedRoute>
+                  <CreatePoll />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/community" element={<Community />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

@@ -3,7 +3,13 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Vote, Mail, Lock, AlertCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -11,15 +17,15 @@ import { useAuth } from "@/contexts/AuthContext";
 export default function SignIn() {
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // Get the page user was trying to access before being redirected to login
   const from = location.state?.from?.pathname || "/polls";
 
@@ -42,7 +48,7 @@ export default function SignIn() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsLoading(true);
@@ -50,7 +56,7 @@ export default function SignIn() {
 
     try {
       const success = await signIn(formData.email, formData.password);
-      
+
       if (success) {
         navigate(from, { replace: true });
       } else {
@@ -65,11 +71,11 @@ export default function SignIn() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
     // Clear error for this field when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
@@ -140,11 +146,14 @@ export default function SignIn() {
               {isLoading ? "Signing In..." : "Sign In"}
             </Button>
           </form>
-          
+
           <div className="mt-6 text-center text-sm">
             <p className="text-gray-600">
               Don't have an account?{" "}
-              <Link to="/signup" className="text-indigo-600 hover:text-indigo-500 font-medium">
+              <Link
+                to="/signup"
+                className="text-indigo-600 hover:text-indigo-500 font-medium"
+              >
                 Sign up here
               </Link>
             </p>

@@ -1,19 +1,25 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Vote, 
-  TrendingUp, 
-  Users, 
-  PlusCircle, 
-  BarChart3, 
-  Zap, 
-  Shield, 
+import {
+  Vote,
+  TrendingUp,
+  Users,
+  PlusCircle,
+  BarChart3,
+  Zap,
+  Shield,
   Globe,
   ArrowRight,
-  Star
+  Star,
 } from "lucide-react";
 
 export default function Index() {
@@ -23,52 +29,53 @@ export default function Index() {
       title: "What's the most important tech skill in 2024?",
       votes: 1247,
       timeLeft: "2 days left",
-      category: "Technology"
+      category: "Technology",
     },
     {
       id: 2,
       title: "Best work-from-home setup?",
       votes: 856,
       timeLeft: "5 days left",
-      category: "Lifestyle"
+      category: "Lifestyle",
     },
     {
       id: 3,
       title: "Which AI tool has changed your workflow?",
       votes: 634,
       timeLeft: "1 day left",
-      category: "AI & Tech"
-    }
+      category: "AI & Tech",
+    },
   ];
 
   const features = [
     {
       icon: Zap,
       title: "Lightning Fast",
-      description: "Create and share polls in seconds with our intuitive interface"
+      description:
+        "Create and share polls in seconds with our intuitive interface",
     },
     {
       icon: BarChart3,
       title: "Real-time Analytics",
-      description: "Get instant insights with beautiful, live updating charts"
+      description: "Get instant insights with beautiful, live updating charts",
     },
     {
       icon: Shield,
       title: "Privacy First",
-      description: "Anonymous voting options and secure data handling"
+      description: "Anonymous voting options and secure data handling",
     },
     {
       icon: Globe,
       title: "Global Community",
-      description: "Connect with thousands of active poll creators worldwide"
-    }
+      description: "Connect with thousands of active poll creators worldwide",
+    },
   ];
 
   const stats = [
     { label: "Active Users", value: "15K+", icon: Users },
     { label: "Polls Created", value: "50K+", icon: Vote },
     { label: "Total Votes", value: "2M+", icon: TrendingUp },
-    { label: "Communities", value: "500+", icon: Globe }
+    { label: "Communities", value: "500+", icon: Globe },
   ];
 
   return (
@@ -89,8 +96,9 @@ export default function Index() {
               That People Love
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Build engaging polls, gather meaningful insights, and connect with communities. 
-              From simple yes/no questions to complex surveys, make every opinion count.
+              Build engaging polls, gather meaningful insights, and connect with
+              communities. From simple yes/no questions to complex surveys, make
+              every opinion count.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/create">
@@ -100,7 +108,11 @@ export default function Index() {
                 </Button>
               </Link>
               <Link to="/polls">
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 py-6"
+                >
                   Browse Polls
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
@@ -119,7 +131,9 @@ export default function Index() {
               return (
                 <div key={index} className="text-center">
                   <Icon className="w-8 h-8 text-indigo-600 mx-auto mb-2" />
-                  <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+                  <div className="text-3xl font-bold text-gray-900">
+                    {stat.value}
+                  </div>
                   <p className="text-gray-600">{stat.label}</p>
                 </div>
               );
@@ -141,12 +155,17 @@ export default function Index() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {featuredPolls.map((poll) => (
-              <Card key={poll.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+              <Card
+                key={poll.id}
+                className="hover:shadow-lg transition-shadow cursor-pointer"
+              >
                 <CardHeader>
                   <Badge variant="secondary" className="w-fit mb-2">
                     {poll.category}
                   </Badge>
-                  <CardTitle className="text-lg leading-tight">{poll.title}</CardTitle>
+                  <CardTitle className="text-lg leading-tight">
+                    {poll.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
@@ -212,17 +231,26 @@ export default function Index() {
             Ready to Get Started?
           </h2>
           <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of creators who are already using PollCraft to gather insights and engage their communities.
+            Join thousands of creators who are already using PollCraft to gather
+            insights and engage their communities.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/signup">
-              <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="text-lg px-8 py-6"
+              >
                 <Star className="w-5 h-5 mr-2" />
                 Start Free Today
               </Button>
             </Link>
             <Link to="/create">
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-indigo-600">
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-indigo-600"
+              >
                 Create a Poll
                 <PlusCircle className="w-5 h-5 ml-2" />
               </Button>

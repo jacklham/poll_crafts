@@ -1,6 +1,12 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Construction, ArrowLeft, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -10,10 +16,10 @@ interface PlaceholderPageProps {
   suggestedAction?: string;
 }
 
-export default function PlaceholderPage({ 
-  title, 
-  description, 
-  suggestedAction = "Continue exploring our features while we build this page" 
+export default function PlaceholderPage({
+  title,
+  description,
+  suggestedAction = "Continue exploring our features while we build this page",
 }: PlaceholderPageProps) {
   return (
     <Layout>
@@ -25,18 +31,14 @@ export default function PlaceholderPage({
                 <Construction className="w-8 h-8 text-indigo-600" />
               </div>
             </div>
-            <CardTitle className="text-2xl text-gray-900">
-              {title}
-            </CardTitle>
+            <CardTitle className="text-2xl text-gray-900">{title}</CardTitle>
             <CardDescription className="text-lg text-gray-600 mt-2">
               {description}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <p className="text-gray-600">
-              {suggestedAction}
-            </p>
-            
+            <p className="text-gray-600">{suggestedAction}</p>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/polls">
                 <Button variant="outline">
@@ -45,9 +47,7 @@ export default function PlaceholderPage({
                 </Button>
               </Link>
               <Link to="/polls">
-                <Button>
-                  Browse Polls
-                </Button>
+                <Button>Browse Polls</Button>
               </Link>
             </div>
 

@@ -17,6 +17,7 @@ interface Poll {
   category: string;
   duration: string;
   options: string[];
+  votes?: Record<string, number>;
 }
 
 export default function PollsIndex() {
@@ -34,7 +35,8 @@ export default function PollsIndex() {
       createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
       category: "Technology",
       duration: "7",
-      options: ["JavaScript", "Python", "TypeScript", "Go"]
+      options: ["JavaScript", "Python", "TypeScript", "Go"],
+      votes: { "0": 412, "1": 389, "2": 298, "3": 148 }
     },
     {
       id: "mock-2",
@@ -45,7 +47,8 @@ export default function PollsIndex() {
       createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
       category: "Travel",
       duration: "14",
-      options: ["Japan", "Italy", "Iceland", "New Zealand"]
+      options: ["Japan", "Italy", "Iceland", "New Zealand"],
+      votes: { "0": 234, "1": 298, "2": 167, "3": 157 }
     },
     {
       id: "mock-3",
@@ -56,11 +59,16 @@ export default function PollsIndex() {
       createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
       category: "Entertainment",
       duration: "7",
-      options: ["Netflix", "Disney+", "Amazon Prime", "Hulu"]
+      options: ["Netflix", "Disney+", "Amazon Prime", "Hulu"],
+      votes: { "0": 201, "1": 156, "2": 178, "3": 99 }
     }
   ];
 
   useEffect(() => {
+    loadPolls();
+  }, []);
+
+  const loadPolls = () => {
     // Load created polls from localStorage
     const storedPolls = JSON.parse(localStorage.getItem('pollcraft_polls') || '[]');
     
@@ -71,6 +79,13 @@ export default function PollsIndex() {
     allPolls.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     
     setPolls(allPolls);
+  };
+
+  // Refresh polls when returning to this page (for updated vote counts)
+  useEffect(() => {
+    const handleFocus = () => loadPolls();
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
   const getTimeLeft = (createdAt: string, duration: string) => {
@@ -104,6 +119,53 @@ export default function PollsIndex() {
     isHot(poll.totalVotes) || 
     new Date(poll.createdAt).getTime() > Date.now() - 3 * 24 * 60 * 60 * 1000
   ).slice(0, 6);
+
+  const PollCard = ({ poll }: { poll: Poll }) => (
+    <Card className="hover:shadow-lg transition-shadow cursor-pointer group">
+      <Link to={`/polls/${poll.id}`} className="block">
+        <CardHeader>
+          <div className="flex items-start justify-between">
+            <Badge variant={isHot(poll.totalVotes) ? "default" : "secondary"} className="mb-2">
+              {poll.category}
+            </Badge>
+            {isHot(poll.totalVotes) && (
+              <TrendingUp className="w-4 h-4 text-orange-500" />
+            )}
+          </div>
+          <CardTitle className="text-lg leading-tight group-hover:text-indigo-600 transition-colors">
+            {poll.title}
+          </CardTitle>
+          <CardDescription>{poll.description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+            <span className="flex items-center gap-1">
+              <Users className="w-4 h-4" />
+              {poll.totalVotes} votes
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              {getTimeLeft(poll.createdAt, poll.duration)}
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-600">by {poll.author}</span>
+            <Button 
+              size="sm" 
+              className="flex items-center gap-1"
+              onClick={(e) => {
+                e.preventDefault(); // Prevent Link navigation
+                window.location.href = `/polls/${poll.id}`;
+              }}
+            >
+              <Vote className="w-4 h-4" />
+              Vote Now
+            </Button>
+          </div>
+        </CardContent>
+      </Link>
+    </Card>
+  );
 
   return (
     <Layout>
@@ -150,39 +212,7 @@ export default function PollsIndex() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {trendingPolls.map((poll) => (
-                <Card key={poll.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <Badge variant={isHot(poll.totalVotes) ? "default" : "secondary"} className="mb-2">
-                        {poll.category}
-                      </Badge>
-                      {isHot(poll.totalVotes) && (
-                        <TrendingUp className="w-4 h-4 text-orange-500" />
-                      )}
-                    </div>
-                    <CardTitle className="text-lg leading-tight">{poll.title}</CardTitle>
-                    <CardDescription>{poll.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <span className="flex items-center gap-1">
-                        <Users className="w-4 h-4" />
-                        {poll.totalVotes} votes
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {getTimeLeft(poll.createdAt, poll.duration)}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">by {poll.author}</span>
-                      <Button size="sm" className="flex items-center gap-1">
-                        <Vote className="w-4 h-4" />
-                        Vote Now
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                <PollCard key={poll.id} poll={poll} />
               ))}
             </div>
           </section>
@@ -196,34 +226,7 @@ export default function PollsIndex() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredPolls.slice(trendingPolls.length).map((poll) => (
-                <Card key={poll.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                  <CardHeader>
-                    <Badge variant="secondary" className="w-fit mb-2">
-                      {poll.category}
-                    </Badge>
-                    <CardTitle className="text-lg leading-tight">{poll.title}</CardTitle>
-                    <CardDescription>{poll.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <span className="flex items-center gap-1">
-                        <Users className="w-4 h-4" />
-                        {poll.totalVotes} votes
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {getTimeLeft(poll.createdAt, poll.duration)}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">by {poll.author}</span>
-                      <Button size="sm" className="flex items-center gap-1">
-                        <Vote className="w-4 h-4" />
-                        Vote Now
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                <PollCard key={poll.id} poll={poll} />
               ))}
             </div>
           </section>

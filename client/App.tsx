@@ -19,6 +19,7 @@ import NotFound from "./pages/NotFound";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
 import PollsIndex from "./pages/polls/PollsIndex";
+import PollDetail from "./pages/polls/PollDetail";
 import CreatePoll from "./pages/polls/CreatePoll";
 import Community from "./pages/community/Community";
 
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/polls" element={<PollsIndex />} />
+            <Route path="/polls/:id" element={<PollDetail />} />
             <Route
               path="/create"
               element={

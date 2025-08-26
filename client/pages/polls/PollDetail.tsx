@@ -64,9 +64,9 @@ export default function PollDetail() {
       const storedPolls = JSON.parse(localStorage.getItem('pollcraft_polls') || '[]');
       const mockPolls = getMockPolls();
       const allPolls = [...storedPolls, ...mockPolls];
-      
+
       const foundPoll = allPolls.find(p => p.id === id);
-      
+
       if (foundPoll) {
         // Ensure votes object exists and is properly formatted
         if (!foundPoll.votes) {
@@ -75,8 +75,16 @@ export default function PollDetail() {
             foundPoll.votes[index] = 0;
           });
         }
+
+        // Ensure totalVotes is calculated correctly
+        if (!foundPoll.totalVotes || foundPoll.totalVotes === 0) {
+          foundPoll.totalVotes = Object.values(foundPoll.votes).reduce((sum: number, count: number) => sum + count, 0);
+        }
+
         setPoll(foundPoll);
       } else {
+        console.error("Poll not found with ID:", id);
+        console.log("Available polls:", allPolls.map(p => ({ id: p.id, title: p.title })));
         toast.error("Poll not found");
         navigate("/polls");
       }
